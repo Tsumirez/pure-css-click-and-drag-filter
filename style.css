@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: 100vh;
+}
+
+div.main {
+  width: 50rem;
+  height: 26rem;
+  position: relative;
+  border:1px solid black;
+  font-size: 0;
+}
+
+div.main > div {
+  width: 10%;
+  height: 26rem;
+  display: inline-block;
+  border-right: 1px solid black;
+  box-sizing: border-box;
+  clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%)
+}
+
+div.main > div::before {
+  content: "";
+  background: #000;
+  top: 0;
+  left: 0;
+  width: 50rem;
+  height: 100%;
+  position: absolute;
+  background: url("krytan1.jpg");
+  filter:sepia();
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: block;
+}
+
+div.main:active > div:hover ~ div::before{
+    color:white;
+    background-image:url('krytan1.jpg');
+    filter:none;
+}
