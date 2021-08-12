@@ -25,7 +25,7 @@ div.main {
 }
 
 div.main > div {
-  width: 2px;
+  width: 4px;
   height: 26rem;
   display: inline-block;
   box-sizing: border-box;
@@ -55,7 +55,7 @@ div.main:active {
 
 /* black border to mark the border between base image and filtered part */
 div.main:active > div:hover {
-  border-right-width:2px;
+  border-right-width:1px;
   border-right:1px solid black;
   transition-duration: 0s;
 }
