@@ -8,6 +8,7 @@ body {
   justify-items: center;
   align-items: center;
   height: 100vh;
+  background-color: #333;
 }
 
 div.main {
@@ -16,34 +17,51 @@ div.main {
   position: relative;
   border:1px solid black;
   font-size: 0;
+  background: url("krytan1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 div.main > div {
-  width: 10%;
+  width: 2px;
   height: 26rem;
   display: inline-block;
-  border-right: 1px solid black;
   box-sizing: border-box;
-  clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%)
+  clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  border-right: 1px solid transparent;
 }
 
 div.main > div::before {
   content: "";
-  background: #000;
   top: 0;
   left: 0;
   width: 50rem;
   height: 100%;
   position: absolute;
-  background: url("krytan1.jpg");
-  filter:sepia();
+  background-image: url('krytan1.jpg');
+  transition:filter 10s;
   background-size: cover;
   background-repeat: no-repeat;
-  display: block;
 }
 
-div.main:active > div:hover ~ div::before{
-    color:white;
-    background-image:url('krytan1.jpg');
-    filter:none;
+div.main:active {
+    cursor:grab;
+}
+
+div.main:active > div::before {
+    transition-property: all;
+    transition-duration: 0s;
+}
+
+div.main:active > div:hover {
+  border-color:black;
+}
+
+div.main:active > div:hover::before {
+    background-image: url('');
+}
+
+div.main:active > div:hover ~ div::before {
+    background-image: url('krytan1.jpg');
+    filter:hue-rotate(70deg);
 }
