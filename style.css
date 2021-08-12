@@ -15,7 +15,7 @@ div.main {
   width: 50rem;
   height: 26rem;
   position: relative;
-  border:1px solid black;
+  border: 1px solid black;
   font-size: 0;
   background: url("krytan1.jpg");
   background-size: cover;
@@ -27,8 +27,9 @@ div.main > div {
   height: 26rem;
   display: inline-block;
   box-sizing: border-box;
-  clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   border-right: 1px solid transparent;
+  transition:border-color 99999s;
 }
 
 div.main > div::before {
@@ -38,30 +39,37 @@ div.main > div::before {
   width: 50rem;
   height: 100%;
   position: absolute;
-  background-image: url('krytan1.jpg');
-  transition:filter 10s;
+  background-image: url("krytan1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+  transition: all 99999s;
+  z-index:1
 }
 
+/* grab cursor when holding mouse button on image */
 div.main:active {
-    cursor:grab;
+  cursor: grab;
 }
 
-div.main:active > div::before {
-    transition-property: all;
-    transition-duration: 0s;
-}
-
+/* black border to mark the border between base image and filtered part */
 div.main:active > div:hover {
-  border-color:black;
+  border-right-width:2px;
+  border-right:1px solid black;
+  transition-duration: 0s;
 }
-
+/* transitions reset to wipe old transition when selecting new zone */
+div.main:active > div::before {
+  transition: none;
+}
+/* removing background from ::before on hovered sub-div so border is not obscured */
 div.main:active > div:hover::before {
-    background-image: url('');
+  transition-duration: 0s;
+  z-index:-10000;
+  opacity:0;
 }
 
+/* filtering background for all divs (or more like their ::before pseudoelements) after hovered sub-div */
 div.main:active > div:hover ~ div::before {
-    background-image: url('krytan1.jpg');
-    filter:hue-rotate(70deg);
+  filter: hue-rotate(170deg);
+  transition-duration: 0s;
 }
