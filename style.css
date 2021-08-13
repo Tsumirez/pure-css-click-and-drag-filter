@@ -16,36 +16,43 @@ div.main {
   width: 50rem;
   height: 26rem;
   position: relative;
+  display: flex;
   border: 1px solid black;
   font-size: 0;
   background: url("krytan1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   box-shadow: 0.25rem 0.25rem 0.5rem #000;
+  z-index: 1;
+  overflow: hidden;
 }
 
 div.main > div {
   width: 4px;
   height: 26rem;
-  display: inline-block;
+  order: 1;
   box-sizing: border-box;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  border-right: 1px solid transparent;
-  transition:border-color 99999s;
+  border-left: 1px solid rgba(0, 0, 0, 0);
+  position: relative;
 }
 
-div.main > div::before {
+div.main > div:first-of-type {
+  order: 2;
+  position: static;
+  max-width: 0;
+  border-left:0 none;
+  clip-path: polygon(0 0, 50rem 0, 50rem 26rem, 0 26rem);
+}
+
+div.main > div:first-of-type::before {
   content: "";
-  top: 0;
-  left: 0;
-  width: 50rem;
-  height: 100%;
   position: absolute;
-  background-image: url("krytan1.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  transition: all 99999s;
-  z-index:1
+  height: 26rem;
+  width: 50rem;
+  z-index: -1;
+  background: url("krytan1.jpg");
+  filter: hue-rotate(170deg);
+  right: 0;
 }
 
 /* grab cursor when holding mouse button on image */
@@ -53,36 +60,20 @@ div.main:active {
   cursor: grab;
 }
 
-/* black border to mark the border between base image and filtered part */
 div.main:active > div:hover {
-  border-right-width:1px;
-  border-right:1px solid black;
-  transition-duration: 0s;
-}
-/* transitions reset to wipe old transition when selecting new zone */
-div.main:active > div::before {
-  transition: none;
-}
-/* removing background from ::before on hovered sub-div so border is not obscured */
-div.main:active > div:hover::before {
-  transition-duration: 0s;
-  z-index:-10000;
-  opacity:0;
+  order: 3;
+  border-left-color: black;
 }
 
-/* filtering background for all divs (or more like their ::before pseudoelements) after hovered sub-div */
-div.main:active > div:hover ~ div::before {
-  filter: hue-rotate(170deg);
-  transition-duration: 0s;
+div.main:active > div:hover ~ div {
+  order: 3;
 }
-
-
 /* Just making them headers look fancy */
 
 h1 {
-    font-family:"MonteCarlo", serif;
+  font-family: "MonteCarlo", serif;
 }
 
 h2 {
-    font: 200 1em "MontSerrat", sans-serif;
+  font: 200 1em "MontSerrat", sans-serif;
 }
