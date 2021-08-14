@@ -44,11 +44,11 @@ div.main > div {
 }
 
 div.main > div:first-of-type {
-  order: 2;
+  order: 1;
   position: static;
   max-width: 0;
   border-left:0 none; /*we don't want this element to be hoverable, even if through a 1px border*/
-  transition:none;
+  transition:order 99999s steps(1);
   clip-path: polygon(0 1px, var(--shutter-width) 1px, var(--shutter-width) var(--shutter-height), 0 var(--shutter-height));
 }
 
@@ -63,6 +63,10 @@ div.main > div:first-of-type::before {
 /* grab cursor when holding mouse button on image */
 div.main:active {
   cursor: grab;
+}
+
+div.main:active > div:first-of-type {
+  order:2;
 }
 
 div.main:active > div {
@@ -89,7 +93,7 @@ h2 {
 
 /* decoration ark on top of slider */
 
-/* div.main::before {
+ /* div.main::before {
   content:'';
   position:absolute;
   border-radius:50%;
@@ -104,4 +108,4 @@ h2 {
   0px 0px 0 1px #000,
   0px 1px 0 4px #333,
   0px 5px 0 1px #000;
-} */
+}  */
