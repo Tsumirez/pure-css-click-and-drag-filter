@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -13,43 +14,32 @@ body {
 }
 
 div.main {
-  width: 50rem;
-  height: 26rem;
-  position: relative;
-  display: flex;
-  /* border: 1px solid black; */
+  --shutter-width: 50rem;
+  --shutter-height: 26rem;
+  --sub-div-width: 0.25rem;
+
   font-size: 0;
-  background: url("krytan1.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
+  display: flex;
+  position: relative;
   box-shadow: 0.35rem 0.35rem 0.25rem #111,
   inset 0 0 0 1px #000;
   overflow: hidden;
-  box-sizing: border-box;
-  border-top-color: #333;
 }
 
-div.main::before {
-  content:'';
-  position:absolute;
-  border-radius:50%;
-  width:50rem;
-  height:50rem;
-  top:-90%;
-  left:50%;
-  z-index: 2;
-  background-color: #333;
-  transform:translate(-50%, -50%);
-  box-shadow: 0 0 0 1px #000;
+div.main, 
+div.main> div:first-of-type::before {
+  height: var(--shutter-height);
+  width:  var(--shutter-width);
+  background: url("krytan1.jpg") 0/cover no-repeat;
 }
 
 div.main > div {
-  width: 4px;
-  height: 26rem;
   order: 1;
+  width: var(--sub-div-width);
+  height: var(--shutter-height);
+  position: relative;
   box-sizing: border-box;
   border-left: 0px solid black;
-  position: relative;
   transition: order 99999s steps(1, jump-end), border-left 99999s steps(1, jump-end);
 }
 
@@ -59,18 +49,15 @@ div.main > div:first-of-type {
   max-width: 0;
   border-left:0 none; /*we don't want this element to be hoverable, even if through a 1px border*/
   transition:none;
-  clip-path: polygon(0 1px, 50rem 1px, 50rem 26rem, 0 26rem);
+  clip-path: polygon(0 1px, var(--shutter-width) 1px, var(--shutter-width) var(--shutter-height), 0 var(--shutter-height));
 }
 
 div.main > div:first-of-type::before {
-  content: "";
-  position: absolute;
-  height: 26rem;
-  width: 50rem;
-  z-index: -1;
-  background: url("krytan1.jpg");
-  filter: hue-rotate(170deg);
   right: 0;
+  content: "";
+  z-index: -1;
+  position: absolute;
+  filter: hue-rotate(170deg);
 }
 
 /* grab cursor when holding mouse button on image */
@@ -90,8 +77,8 @@ div.main:active > div:hover {
 div.main:active > div:hover ~ div {
   order: 3;
 }
-/* Just making them headers look fancy */
 
+/* Just making them headers look fancy */
 h1 {
   font-family: "MonteCarlo", serif;
 }
@@ -99,3 +86,22 @@ h1 {
 h2 {
   font: 200 1em "MontSerrat", sans-serif;
 }
+
+/* decoration ark on top of slider */
+
+/* div.main::before {
+  content:'';
+  position:absolute;
+  border-radius:50%;
+  width:50rem;
+  height:50rem;
+  top:-90%;
+  left:50%;
+  z-index: 1;
+  background-color: transparent;
+  transform:translate(-50%, -50%);
+  box-shadow: 
+  0px 0px 0 1px #000,
+  0px 1px 0 4px #333,
+  0px 5px 0 1px #000;
+} */
